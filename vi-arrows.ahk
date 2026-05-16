@@ -31,6 +31,9 @@
 
 #SingleInstance Force
 
+; Alt+W 累积的剪切缓冲区
+_cutWords := ""
+
 ; Alt + I/J/K/L → 方向键（字符级）
 !i::Send "{Up}"
 !k::Send "{Down}"
@@ -63,16 +66,35 @@
 ; Shift + Alt + ; → 选中到行尾
 +!SC027::Send "+{End}"
 
-; Alt + W → 选中前一个单词并剪切（保存到剪贴板）
+; Alt + W → 剪切前一个单词（累积到缓冲区，保留剪贴板原内容）
 !w::
 {
-    Send "^+{Left}"
-    Sleep 10
-    Send "^x"
+    global _cutWords
+    saved := A_Clipboard              ; 保存当前剪贴板
+    Send "^+{Left}"                   ; 选中前一个单词
+    Sleep 15
+    Send "^x"                         ; 剪切
+    Sleep 15
+    word := A_Clipboard               ; 读取切下的单词
+    if word != "" && word != saved
+        _cutWords := word . _cutWords ; 累积到缓冲（新词在前）
+    A_Clipboard := saved              ; 恢复剪贴板
 }
 
-; Alt + E → 粘贴
-!e::Send "^v"
+; Alt + E → 粘贴累积的剪切内容（连续按 Alt+W 删除的所有单词）
+!e::
+{
+    global _cutWords
+    if _cutWords == ""
+        return
+    saved := A_Clipboard
+    A_Clipboard := _cutWords          ; 临时写入剪贴板
+    Sleep 10
+    Send "^v"                         ; 粘贴
+    Sleep 10
+    A_Clipboard := saved              ; 恢复剪贴板
+    _cutWords := ""                   ; 清空缓冲
+}
 
 ; Alt + ' → 删除
 !'::Send "{Del}"

@@ -109,10 +109,10 @@ _cutWords := ""
     _cutWords := ""                       ; 清空缓冲
 }
 
-; 双 Alt（左 Alt + 右 Alt）+ I/K → 移动当前行（Shift+Alt+Up/Down）
+; 双 Alt（左 Alt + 右 Alt）+ I/K → 移动当前行（Ctrl+PgUp/PgDn）
 #HotIf GetKeyState("LAlt", "P") and GetKeyState("RAlt", "P")
-i::Send "!+{Up}"
-k::Send "!+{Down}"
+i::Send "^{PgUp}"
+k::Send "^{PgDn}"
 #HotIf
 
 ; Alt + C → 复制

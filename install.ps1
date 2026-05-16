@@ -29,9 +29,28 @@ foreach ($path in $AhkPaths) {
 }
 
 if (-not $AhkExe) {
-    Write-Host "[!] AutoHotKey v2 未找到，请先安装：https://www.autohotkey.com/"
-    Write-Host "  安装完成后重新运行此脚本即可"
-    exit 1
+    Write-Host "[.] AutoHotKey v2 not found, installing via winget..."
+    Write-Host ""
+    winget install AutoHotkey.AutoHotkey --source winget --accept-package-agreements --accept-source-agreements
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "[!] winget install failed. Try manual install: https://www.autohotkey.com/"
+        Write-Host "  Then re-run this script."
+        exit 1
+    }
+    # Re-detect after install
+    foreach ($path in $AhkPaths) {
+        if (Test-Path $path) {
+            $AhkExe = $path
+            break
+        }
+    }
+    if (-not $AhkExe) {
+        Write-Host "[!] AutoHotKey was installed but the executable was not found."
+        Write-Host "  Please re-run this script after installation."
+        exit 1
+    }
+    Write-Host "[OK] AutoHotKey v2 installed successfully!"
+    Write-Host ""
 }
 
 # 检测脚本是否存在

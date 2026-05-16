@@ -19,9 +19,12 @@
 ;   Shift+Alt+M    → Ctrl+Shift+Right (向右选中一个单词)
 ;
 ; 行级 / 编辑：
-;   Alt+H          → Home          (行首)
-;   Alt+SC027      → End           (行尾  SC027 = ; 键)
-;   Alt+'          → Delete        (删除)
+;   Alt+H          → Home                (行首)
+;   Alt+;          → End                 (行尾)
+;   Alt+'          → Delete              (删除)
+;   Shift+Alt+H    → Shift+Home         (选中到行首)
+;   Shift+Alt+;    → Shift+End          (选中到行尾)
+;   Shift+Alt+'    → Shift+Delete       (剪切)
 ; ============================================================
 
 #SingleInstance Force
@@ -49,8 +52,17 @@
 ; Alt + H → 行首
 !h::Send "{Home}"
 
+; Shift + Alt + H → 选中到行首
++!h::Send "+{Home}"
+
 ; Alt + ; → 行尾（SC027 = 分号键的扫描码）
 !SC027::Send "{End}"
 
+; Shift + Alt + ; → 选中到行尾
++!SC027::Send "+{End}"
+
 ; Alt + ' → 删除
 !'::Send "{Del}"
+
+; Shift + Alt + ' → Shift+Delete（剪切）
++!'::Send "+{Del}"

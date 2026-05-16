@@ -45,22 +45,9 @@
 ; Alt+W 累积的剪切缓冲区
 _cutWords := ""
 
-; Alt + I/J/K/L → 方向键（字符级）
-; 双 Alt + I/K → 移动当前行（Ctrl+PgUp/PgDn）
-!i::
-{
-    if GetKeyState("LAlt", "P") and GetKeyState("RAlt", "P")
-        Send "^{PgUp}"
-    else
-        Send "{Up}"
-}
-!k::
-{
-    if GetKeyState("LAlt", "P") and GetKeyState("RAlt", "P")
-        Send "^{PgDn}"
-    else
-        Send "{Down}"
-}
+; Alt + I/J/K/L → 方向键
+!i::Send "{Up}"
+!k::Send "{Down}"
 !j::Send "{Left}"
 !l::Send "{Right}"
 
@@ -140,6 +127,9 @@ _cutWords := ""
 
 ; Alt + T → 搜索文件（VS Code Ctrl+T, 浏览器新标签页等）
 !t::Send "^t"
+
+; Alt + Q → 关闭标签页 / 窗口（Ctrl+W）
+!q::Send "^w"
 
 ; Alt + D → 退出终端 / 删除字符
 !d::Send "^d"

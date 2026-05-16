@@ -70,15 +70,17 @@ _cutWords := ""
 !w::
 {
     global _cutWords
-    saved := A_Clipboard              ; 保存当前剪贴板
-    Send "^+{Left}"                   ; 选中前一个单词
-    Sleep 15
-    Send "^x"                         ; 剪切
-    Sleep 15
-    word := A_Clipboard               ; 读取切下的单词
-    if word != "" && word != saved
-        _cutWords := word . _cutWords ; 累积到缓冲（新词在前）
-    A_Clipboard := saved              ; 恢复剪贴板
+    saved := A_Clipboard                  ; 保存当前剪贴板
+    A_Clipboard := ""                     ; 清空剪贴板，用于区分新内容
+    Send "^+{Left}"                       ; 选中前一个单词
+    Sleep 30
+    Send "^x"                             ; 剪切
+    if ClipWait(0.3) {                    ; 等待剪贴板就绪（最长 300ms）
+        word := A_Clipboard
+        if word != ""
+            _cutWords := word . _cutWords ; 累积到缓冲（新词在前）
+    }
+    A_Clipboard := saved                  ; 恢复剪贴板
 }
 
 ; Alt + E → 粘贴累积的剪切内容（连续按 Alt+W 删除的所有单词）
@@ -88,12 +90,12 @@ _cutWords := ""
     if _cutWords == ""
         return
     saved := A_Clipboard
-    A_Clipboard := _cutWords          ; 临时写入剪贴板
-    Sleep 10
-    Send "^v"                         ; 粘贴
-    Sleep 10
-    A_Clipboard := saved              ; 恢复剪贴板
-    _cutWords := ""                   ; 清空缓冲
+    A_Clipboard := _cutWords              ; 临时写入剪贴板
+    Sleep 20
+    Send "^v"                             ; 粘贴
+    Sleep 50                              ; 等粘贴完成再恢复
+    A_Clipboard := saved                  ; 恢复剪贴板
+    _cutWords := ""                       ; 清空缓冲
 }
 
 ; Alt + ' → 删除

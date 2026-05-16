@@ -22,6 +22,8 @@
 ;   Alt+H          → Home                (行首)
 ;   Alt+;          → End                 (行尾)
 ;   Alt+'          → Delete              (删除)
+;   Alt+W          → Cut prev word       (剪切前一个单词)
+;   Alt+E          → Paste               (粘贴)
 ;   Shift+Alt+H    → Shift+Home         (选中到行首)
 ;   Shift+Alt+;    → Shift+End          (选中到行尾)
 ;   Shift+Alt+'    → Shift+Delete       (剪切)
@@ -60,6 +62,17 @@
 
 ; Shift + Alt + ; → 选中到行尾
 +!SC027::Send "+{End}"
+
+; Alt + W → 选中前一个单词并剪切（保存到剪贴板）
+!w::
+{
+    Send "^+{Left}"
+    Sleep 10
+    Send "^x"
+}
+
+; Alt + E → 粘贴
+!e::Send "^v"
 
 ; Alt + ' → 删除
 !'::Send "{Del}"

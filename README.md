@@ -19,26 +19,18 @@
 
 ## 安装
 
-### 1. 安装 AutoHotKey v2
-
-```powershell
-winget install AutoHotkey.AutoHotkey
-```
-
-或从 [autohotkey.com](https://www.autohotkey.com/) 下载安装。
-
-### 2. 运行安装脚本
-
 ```powershell
 powershell -ExecutionPolicy Bypass -File AutoHotKey\install.ps1
 ```
 
-脚本会自动：
-- 检测 AutoHotKey v2 安装路径
-- 在当前用户开机启动目录创建快捷方式
-- 可选立即启动脚本
+脚本会自动完成全部步骤：
+1. 检测 AutoHotKey v2 是否已安装，**未安装则自动通过 winget 安装**
+2. 在当前用户开机启动目录创建快捷方式
+3. 询问是否立即启动脚本
 
-### 3. 验证
+> 如果 winget 安装失败，也可以从 [autohotkey.com](https://www.autohotkey.com/) 手动安装后重新运行脚本。
+
+### 验证
 
 启动后系统托盘会出现 AutoHotKey 图标（绿色 H），按 `Alt+I/J/K/L` 即可使用方向键功能。
 

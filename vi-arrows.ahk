@@ -23,7 +23,18 @@
 ;   Alt+;          → End                 (行尾)
 ;   Alt+'          → Delete              (删除)
 ;   Alt+W          → Cut prev word       (剪切前一个单词)
-;   Alt+E          → Paste               (粘贴)
+;   Alt+E          → Paste               (粘贴累积的剪切内容)
+;
+; 系统操作（模拟 Ctrl 快捷键）：
+;   Alt+C          → Ctrl+C              (复制)
+;   Alt+V          → Ctrl+V              (粘贴)
+;   Alt+X          → Ctrl+X              (剪切)
+;   Alt+A          → Ctrl+A              (全选)
+;   Alt+S          → Ctrl+S              (保存)
+;   Alt+T          → Ctrl+T              (搜索文件)
+;   Alt+D          → Ctrl+D              (退出终端 / 删除字符)
+;
+; 选中操作：
 ;   Shift+Alt+H    → Shift+Home         (选中到行首)
 ;   Shift+Alt+;    → Shift+End          (选中到行尾)
 ;   Shift+Alt+'    → Shift+Delete       (剪切)
@@ -97,6 +108,27 @@ _cutWords := ""
     A_Clipboard := saved                  ; 恢复剪贴板
     _cutWords := ""                       ; 清空缓冲
 }
+
+; Alt + C → 复制
+!c::Send "^c"
+
+; Alt + V → 粘贴
+!v::Send "^v"
+
+; Alt + X → 剪切
+!x::Send "^x"
+
+; Alt + A → 全选
+!a::Send "^a"
+
+; Alt + S → 保存
+!s::Send "^s"
+
+; Alt + T → 搜索文件（VS Code Ctrl+T, 浏览器新标签页等）
+!t::Send "^t"
+
+; Alt + D → 退出终端 / 删除字符
+!d::Send "^d"
 
 ; Alt + ' → 删除
 !'::Send "{Del}"

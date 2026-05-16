@@ -31,9 +31,6 @@
 
 #SingleInstance Force
 
-; 键盘右侧 Alt 映射为 Ctrl（不影响左侧 Alt 的 vi 方向键映射）
-RAlt::Ctrl
-
 ; Alt+W 累积的剪切缓冲区
 _cutWords := ""
 

@@ -32,6 +32,8 @@
 ;   Alt+A          → Ctrl+A              (全选)
 ;   Alt+S          → Ctrl+S              (保存)
 ;   Alt+T          → Ctrl+T              (搜索文件)
+;   Alt+U          → Ctrl+J              (VS Code 切换面板)
+;   Alt+O          → Ctrl+L              (VS Code Claude 侧边栏)
 ;   Alt+D          → Ctrl+D              (退出终端 / 删除字符)
 ;
 ; 选中操作：
@@ -127,6 +129,15 @@ _cutWords := ""
 
 ; Alt + T → 搜索文件（VS Code Ctrl+T, 浏览器新标签页等）
 !t::Send "^t"
+
+; Alt + U → Ctrl+J（VS Code 切换面板）
+!u::Send "^j"
+
+; Alt + O → Ctrl+L（VS Code Claude 侧边栏）
+!o::Send "^l"
+
+; 右 Alt + R → Ctrl+R（刷新 / 重做）
+>!r::Send "^r"
 
 ; Alt + Q → 关闭标签页 / 窗口（Ctrl+W）
 !q::Send "^w"
